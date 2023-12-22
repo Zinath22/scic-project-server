@@ -30,11 +30,14 @@ async function run() {
     const taskCollection = client.db("taskManagementDB").collection("task");
 
     
-
-    app.get('/task', async (req, res) => {
+     app.get('/task', async (req, res) => {
       const result = await taskCollection.find().toArray();
       res.send(result);
-    });
+     })
+    // app.get('/task', async (req, res) => {
+    //   const result = await taskCollection.find().toArray();
+    //   res.send(result);
+    // });
 
     app.get('/task/:id',async (req, res) => {
       const id = req.params.id;
@@ -57,12 +60,11 @@ async function run() {
     //   res.send(result);
     // })
 
-
     app.post('/task', async (req, res) => {
       const item = req.body;
       const result = await taskCollection.insertOne(item);
       res.send(result);
-    });
+    })
 
 
 
@@ -72,7 +74,7 @@ async function run() {
     console.log("Pinged your deployment. You successfully connected to MongoDB!");
 } finally {
     // Ensures that the client will close when you finish/error
-    await client.close();
+    // await client.close();
   }
 }
 run().catch(console.dir);
